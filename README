@@ -1,0 +1,117 @@
+Park is a package management system that uses source repositories as packages.
+
+It abstracts some common features of repo systems, like git and Mercurial, into
+a single command-line interface. You can actually commit and push changes from
+park itself.
+
+Park also includes auto-update controls which manage crontabs for individual
+packages, which helps you maintain any kind of update schedule you could want.
+
+Here is a summary of its usage:
+
+
+	park +
+
+		List all *explicitly installed* packages. On a fresh install of
+		Cambria, the only installed package will be "cambria", as the
+		dependencies form your entire system and are not explicitly
+		installed. As you add more packages with the following command,
+		they will be added to this list, which will make it trivially
+		easy to manually (or throught a script) clean your system back
+		to a fresh install state.
+
+	park + packagename [otherpackage]
+
+		Install a package to your system. You can install as many as
+		you want with a single command, they're space-seperated.
+
+	park + repolocation [as name]
+
+		Install a package from a repo address. If no name is given,
+		the folder name retrieved by the repo program will be used.
+		If a name is given, then that will be used as the folder name
+		in /src/pkg. Note that this can be mixed freely with other
+		packages, and is really the same command as above, but showing
+		off different features. 
+
+		Also note that you can use the same name as an "official" 
+		package in the park registry, as all official packages can be 
+		accessed through "!name", where "name" is the name of the 
+		package. So I could install some weird variant of Python as
+		"python", but I'm still fully capable of referencing the "real"
+		Python package as "!python" (as in, "park + !python"). You can
+		think of non-! names as softlinks that point to their !
+		counterparts unless overridden by custom packages. Using the
+		same name twice will cause park to ask you if you want to 
+		overwrite the existing custom package, which is the only way
+		to install a new package to an existing override name (this
+		will uninstall the old custom package).
+
+		The "as" keyword also takes the official names of repos, so
+		you can make a pseudonym for a package if it makes your life
+		easier. This will duplicate the source code on your system, but
+		allows you to more easily have two versions of a package side-
+		by-side on your system. I could enter "park + ruby as newruby"
+		to install the ruby package under the name "newruby", whether
+		it was currently installed or not.
+
+	park -
+
+		Remove all installed packages that are neither explicitly
+		installed nor dependencies of explicitly installed packages,
+		equivalent to apt-get autoremove.
+
+	park - packagename [otherpackage]
+
+		Uninstall one or more packages. Does not support repo links.
+
+	park x
+
+		Update all your packages - this can be a very slow ordeal,
+		and is the reason park includes a cron-based "rolling update"
+		system.
+
+	park x packagename [otherpackage]
+
+		Update one or more packages. If you give it a repo link, it
+		will use the repo's name (much like park + will), and this
+		command also supports the "as" keyword. Any packages not already
+		installed will be installed automatically.
+
+		You can also use the "to" keyword for metapackages, to specify
+		what version you want to set the package to. For example, 
+		"park x python to 2.7", which will update the dependencies of
+		the python package to contain only "python2.7" and attempt to
+		update python. Trying to set to a version not specified in the
+		metapackage will generate an error but not interfere in other
+		updates.
+
+	park /
+
+		List all installed packages in a dependency tree.
+
+	park / packagename
+
+		List information about the package, "packagename".
+
+	park / packagename property value
+
+		Set the property "property" of package "packagename" to "value".
+
+		Some example properties are "version" (which works the same as
+		"park x packagename to value"), "auto" (which sets whether this
+		package updates automatically or not), and "schedule" (which is
+		a human-readable schedule description that usually follows the
+		format of "every 14:20" or "every Tuesday" or "every Tuesday at
+		14:20").
+
+		This subcommand is the reason you can't list properties of
+		multiple packages at once.
+
+	park / packagename property
+
+		Print out the current value of "property" for "packagename".
+
+		Absolutely no frills, because really, it's the scripters who
+		are gonna use this, mostly, and frills just make things
+		complicated in a completely unnecessary fashion for them.
