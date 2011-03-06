@@ -99,11 +99,18 @@ Here is a summary of its usage:
 		Set the property "property" of package "packagename" to "value".
 
 		Some example properties are "version" (which works the same as
-		"park x packagename to value"), "auto" (which sets whether this
+		"park x packagename to value"), "chan" (the channel of the
+		package, which is a repo branch),"auto" (which sets whether this
 		package updates automatically or not), and "schedule" (which is
 		a human-readable schedule description that usually follows the
 		format of "every 14:20" or "every Tuesday" or "every Tuesday at
 		14:20").
+
+		Some other important properties are "repo_up" and "repo_down",
+		which are links to repos online. When you install a package,
+		only repo_down is set, although you can set repo_up in order
+		to set up pushing your commits online. You can also use this
+		to change the source from which you're downloading a package.
 
 		This subcommand is the reason you can't list properties of
 		multiple packages at once.
@@ -115,3 +122,65 @@ Here is a summary of its usage:
 		Absolutely no frills, because really, it's the scripters who
 		are gonna use this, mostly, and frills just make things
 		complicated in a completely unnecessary fashion for them.
+
+	park .
+
+		Statistics about your packages in terms of how many are of
+		each type of repo (# of git, # of Mercurial, etc). Adding a -v
+		will cause park to spit out a 3-column list of the format:
+
+		packagename repo_up repo_down
+
+	park . packagename in message
+
+		Where "in" is a keyword, and "message" a commit message. This
+		commits or "checks in" the working directory. This includes
+		staging the whole src/pkg/packagename directory, for repos
+		with a staging step (so, git add . && git commit -m message).
+
+	park . packagename out [--hash|-h hash]|[-x]
+
+		Checks out a state from the repo into the working directory.
+
+		With no extra arguments, pulls out the latest version. With -h
+		or --hash, you can specify the hash of the version you want
+		to check out, or use -x (where x is a number) to check out the
+		version -x versions from the current head (park . python out -5
+		will check out the version 5 commits before the current, you
+		can think of the no-arguments call as equivalent to using -0).
+
+	park . packagename up [address] [channel]
+
+		Pushes local commits to the internet.
+
+		Address can be a link, "repo_up" (default and redundant),
+		"repo_down", or "otherpackage:repo_up"/"otherpackage:repo_down"
+		where otherpackage is a reference to another package (allowing
+		you to push commits to other packages' repo links).
+
+
+	park . packagename down [address] [channel]
+
+		Pulls updates from the internet.
+
+		Like . packagename up, this subcommand is mostly useful if you
+		are someone who maintains a package, knows what you're doing,
+		and has to move commits across packages, in which case these
+		commands will actually be simpler than using the simpler
+		"x packagename" syntax.
+
+		This command will never change the channel or any other
+		variables of your local package, and neither will up. This
+		means less surprises, less "helping" you behind your back. I
+		think the target audience of the . series of subcommands will
+		appreciate the simplicity :)
+
+
+As a general rule:
+
+	+ commands involve installation,
+	- commands involve uninstallation,
+	x commands involve updates,
+	/ commands tell you things,
+	. commands give you closer (but still generalized) repo control.
+
