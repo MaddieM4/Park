@@ -44,7 +44,9 @@ int main(int argc, char** argv) {
 	string command = argv[1];
 	string* args = arguments(argc, argv);
 	int numargs = 0;
+	string would = "";
 	while (args[numargs] != "") {
+		would += " "+ args[numargs];
 		numargs++;
 	}
 	int autoremove = autoremove_later(argc, argv);
@@ -53,12 +55,7 @@ int main(int argc, char** argv) {
 		if (numargs > 0) {
 			// Installation command
 			fprintf(stdout, "Install a repo\n\n");
-			string cat = "";
-			for (int i=0; i<numargs; i++) {
-				cat += " "+ args[i];
-				i++;
-			}
-			fprintf(stdout, "Would install:%s\n", cat.c_str());
+			fprintf(stdout, "Would install:%s\n", would.c_str());
 		} else {
 			// List all explicitly installed packages
 			// ...in other words, cat ./db/explicit
@@ -75,24 +72,28 @@ int main(int argc, char** argv) {
 	} else if (command == "-") {
 		if (numargs>0) {
 			fprintf(stdout, "Uninstall a package\n");
+			fprintf(stdout, "Would uninstall:%s\n", would.c_str());
 		} else {
 			fprintf(stdout, "Autoremove packages not in the explicit tree\n");
 		}
 	} else if (command == "x") {
 		if (numargs>0) {
 			fprintf(stdout, "Update a package\n");
+			fprintf(stdout, "Would update:%s\n", would.c_str());
 		} else {
 			fprintf(stdout, "Update all packages (freakishly slow)\n");
 		}
 	} else if (command == "/") {
 		if (numargs>0) {
 			fprintf(stdout, "Get information about a package\n");
+			fprintf(stdout, "Would list for:%s\n", would.c_str());
 		} else {
 			fprintf(stdout, "Print the dependency tree\n");
 		}
 	} else if (command == ".") {
 		if (numargs>0) {
 			fprintf(stdout, "Do repo-y stuff to a package\n");
+			fprintf(stdout, "Would give access to:%s\n", would.c_str());
 		} else {
 			fprintf(stdout, "Repo statistics of all packages\n");
 		}
