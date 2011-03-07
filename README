@@ -200,3 +200,8 @@ As a general rule:
 Finally: appending a simple "-" to the end of any command as a final argument
 will tell park to run "park -" (autoremove) once the main command is finished,
 which is more convenient than "&& park -" by 8 characters.
+
+Note to developers: if you're having trouble with filenames that include the !,
+and bash (or your shell of choice) making some aggravating assumptions about
+history completion, you can escape the ! character with a backslash; for 
+example, "less dep/\!cambria" instead of "less dep/!cambria".
