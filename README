@@ -101,10 +101,10 @@ Here is a summary of its usage:
 		Some example properties are "version" (which works the same as
 		"park x packagename to value"), "chan" (the channel of the
 		package, which is a repo branch),"auto" (which sets whether this
-		package updates automatically or not), and "schedule" (which is
-		a human-readable schedule description that usually follows the
-		format of "every 14:20" or "every Tuesday" or "every Tuesday at
-		14:20").
+		package moves to new versions automatically or not), and 
+		"schedule" (which is a human-readable schedule description 
+		that usually follows the format of "every 14:20" or "every 
+		Tuesday" or "every Tuesday at 14:20").
 
 		Some other important properties are "repo_up" and "repo_down",
 		which are links to repos online. When you install a package,
@@ -122,6 +122,18 @@ Here is a summary of its usage:
 		Absolutely no frills, because really, it's the scripters who
 		are gonna use this, mostly, and frills just make things
 		complicated in a completely unnecessary fashion for them.
+
+		For the property "chan", the output is a little more verbose:
+		every available channel will be listed, with the currently
+		selected one prefixed by a "* ". So for "park / python chan", 
+		you could see the following as output:
+
+			you@localhost:~$ park / python chan
+			binary
+			development
+			* feature-PIL-enhancements
+			release
+			you@localhost:~$
 
 	park .
 
@@ -184,3 +196,7 @@ As a general rule:
 	/ commands tell you things,
 	. commands give you closer (but still generalized) repo control.
 
+
+Finally: appending a simple "-" to the end of any command as a final argument
+will tell park to run "park -" (autoremove) once the main command is finished,
+which is more convenient than "&& park -" by 8 characters.
