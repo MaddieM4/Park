@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <string>
+
 using std::string;
 
 void printargs(int argc, char** argv) {
@@ -12,6 +13,7 @@ void printargs(int argc, char** argv) {
 int main(int argc, char** argv) {
 	// Do stuff
 	//printargs(argc, argv);
+	// test loading
 	if (argc < 2) {
 		fprintf(stderr, "park: not enough arguments\n");
 		return 1;
@@ -22,7 +24,22 @@ int main(int argc, char** argv) {
 	//fprintf(stdout, "Subcommand length:%d\n", command.length());
 	//fprintf(stdout, "True = %d\n", (command=="+") );
 	if (command == "+") {
-		fprintf(stdout, "Install a repo");
+		if (argc > 2) {
+			// Installation command
+			fprintf(stdout, "Install a repo");
+		} else {
+			// List all explicitly installed packages
+			// ...in other words, cat ./db/explicit
+			FILE* explic = fopen("./db/explicit", "r");
+			while (1) {
+				char c = getc(explic);
+				if (c==EOF) {
+					return 0;
+				} else {
+					fprintf(stdout, "%c", c);
+				}
+			}
+		}
 	} else if (command == "-") {
 		fprintf(stdout, "Uninstall a repo");
 	} else if (command == "x") {
