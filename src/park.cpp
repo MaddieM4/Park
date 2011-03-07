@@ -73,13 +73,29 @@ int main(int argc, char** argv) {
 			}
 		}
 	} else if (command == "-") {
-		fprintf(stdout, "Uninstall a repo\n");
+		if (numargs>0) {
+			fprintf(stdout, "Uninstall a package\n");
+		} else {
+			fprintf(stdout, "Autoremove packages not in the explicit tree\n");
+		}
 	} else if (command == "x") {
-		fprintf(stdout, "Update a repo\n");
+		if (numargs>0) {
+			fprintf(stdout, "Update a package\n");
+		} else {
+			fprintf(stdout, "Update all packages (freakishly slow)\n");
+		}
 	} else if (command == "/") {
-		fprintf(stdout, "Get information about a repo\n");
+		if (numargs>0) {
+			fprintf(stdout, "Get information about a package\n");
+		} else {
+			fprintf(stdout, "Print the dependency tree\n");
+		}
 	} else if (command == ".") {
-		fprintf(stdout, "Set the channel of a repo\n");
+		if (numargs>0) {
+			fprintf(stdout, "Do repo-y stuff to a package\n");
+		} else {
+			fprintf(stdout, "Repo statistics of all packages\n");
+		}
 	} else {
 		fprintf(stderr, "park: bad subcommand (%s)\n", command.c_str());
 		return 1;
