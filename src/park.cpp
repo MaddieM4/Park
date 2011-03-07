@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 		fprintf(stdout, "Update a repo");
 	} else if (command == "/") {
 		fprintf(stdout, "Get information about a repo");
-	} else if (command == "chan") {
+	} else if (command == ".") {
 		fprintf(stdout, "Set the channel of a repo");
 	} else {
 		fprintf(stderr, "park: bad subcommand (%s)\n", command.c_str());

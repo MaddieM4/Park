@@ -1,2 +1,2 @@
-park: park.cpp
-	g++ park.cpp -o park
+park: src/park.cpp
+	g++ src/park.cpp -o park
