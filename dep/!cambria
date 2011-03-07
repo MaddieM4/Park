@@ -1,0 +1,6 @@
+1.0
+	coreutils
+	park
+	linuxkernel >= 2.6.35
+	xfce
+	docky

@@ -1,0 +1,8 @@
+{
+	"version":"1.0",
+	"chan":"release",
+	"auto":"False",
+	"schedule":"every Tuesday 14:00",
+	"repo_up":"",
+	"repo_down":"git://github.com/campadrenalin/cambria-master"
+}
