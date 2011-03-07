@@ -12,7 +12,7 @@ void printargs(int argc, char** argv) {
 
 int autoremove_later(int argc, char** argv) {
 	string last = argv[argc-1];
-	if (last == "-") {
+	if (last == "-" && argc>2) {
 		return 1;
 	} else {
 		return 0;
@@ -43,15 +43,18 @@ int main(int argc, char** argv) {
 
 	string command = argv[1];
 	string* args = arguments(argc, argv);
+	int numargs = 0;
+	while (args[numargs] != "") {
+		numargs++;
+	}
 	int autoremove = autoremove_later(argc, argv);
 
 	if (command == "+") {
-		if (argc > 2) {
+		if (numargs > 0) {
 			// Installation command
 			fprintf(stdout, "Install a repo\n\n");
 			string cat = "";
-			int i = 0;
-			while (args[i] != ""){
+			for (int i=0; i<numargs; i++) {
 				cat += " "+ args[i];
 				i++;
 			}
