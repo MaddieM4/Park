@@ -25,7 +25,7 @@ Here is a summary of its usage:
 		Install a package to your system. You can install as many as
 		you want with a single command, they're space-seperated.
 
-	park + repolocation [as name]
+	park + repolocation [--as name]
 
 		Install a package from a repo address. If no name is given,
 		the folder name retrieved by the repo program will be used.
@@ -47,11 +47,11 @@ Here is a summary of its usage:
 		to install a new package to an existing override name (this
 		will uninstall the old custom package).
 
-		The "as" keyword also takes the official names of repos, so
+		The "--as" keyword also takes the official names of repos, so
 		you can make a pseudonym for a package if it makes your life
 		easier. This will duplicate the source code on your system, but
 		allows you to more easily have two versions of a package side-
-		by-side on your system. I could enter "park + ruby as newruby"
+		by-side on your system. I could enter "park + ruby --as newruby"
 		to install the ruby package under the name "newruby", whether
 		it was currently installed or not.
 
@@ -75,12 +75,12 @@ Here is a summary of its usage:
 
 		Update one or more packages. If you give it a repo link, it
 		will use the repo's name (much like park + will), and this
-		command also supports the "as" keyword. Any packages not already
-		installed will be installed automatically.
+		command also supports the "--as" keyword. Any packages not 
+		already installed will be installed automatically.
 
-		You can also use the "to" keyword for metapackages, to specify
+		You can also use the "--to" keyword for metapackages, to specify
 		what version you want to set the package to. For example, 
-		"park x python to 2.7", which will update the dependencies of
+		"park x python --to 2.7", which will update the dependencies of
 		the python package to contain only "python2.7" and attempt to
 		update python. Trying to set to a version not specified in the
 		metapackage will generate an error but not interfere in other
