@@ -4,3 +4,7 @@
 	linuxkernel >= 2.6.35
 	xfce
 	docky
+	# for the sake of a demo, here's what parentheses do in a dep file:
+	# If park already knows where the package laura is, use that location.
+	# If not, use the one in parentheses.
+	laura (git://github.com/campadrenalin/Laura)
