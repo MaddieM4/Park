@@ -4,12 +4,6 @@
 
 using std::string;
 
-void printargs(int argc, char** argv) {
-	for(int i=0; i<argc; i++) {
-		fprintf(stdout, "Arg #%d = '%s'\n", i, argv[i]);
-	}
-}
-
 int autoremove_later(int argc, char** argv) {
 	string last = argv[argc-1];
 	if (last == "-" && argc>2) {
@@ -35,6 +29,14 @@ string* arguments(int argc, char** argv) {
 	return result;
 }
 
+int auto_r() {
+	// create list of all explicit + dependency packages
+	// create list of all installed packages
+	// remove "keepers" from master list
+	// remove all packages left on the list
+	return 1;
+}
+
 int main(int argc, char** argv) {
 	if (argc < 2) {
 		fprintf(stderr, "park: not enough arguments\n");
@@ -54,52 +56,57 @@ int main(int argc, char** argv) {
 	if (command == "+") {
 		if (numargs > 0) {
 			// Installation command
-			fprintf(stdout, "Install a repo\n\n");
-			fprintf(stdout, "Would install:%s\n", would.c_str());
+			printf("Install a repo\n\n");
+			printf("Would install:%s\n", would.c_str());
 		} else {
 			// List all explicitly installed packages
 			// ...in other words, cat ./db/explicit
-			FILE* explic = fopen("./db/explicit", "r");
-			while (1) {
-				char c = getc(explic);
-				if (c==EOF) {
-					break;
-				} else {
-					fprintf(stdout, "%c", c);
+			FILE* explic = fopen("/var/lib/park/db/explicit", "r");
+			if (explic!=NULL) {
+				char *c;
+				while (fscanf(explic,"%s",c) == 1) {
+					printf("%s %d\n",c, strlen(c));
 				}
 			}
 		}
 	} else if (command == "-") {
 		if (numargs>0) {
-			fprintf(stdout, "Uninstall a package\n");
-			fprintf(stdout, "Would uninstall:%s\n", would.c_str());
+			printf("Uninstall a package\n\n");
+			printf("Would uninstall:%s\n", would.c_str());
 		} else {
-			fprintf(stdout, "Autoremove packages not in the explicit tree\n");
+			printf("Autoremove packages not in the explicit tree\n");
 		}
 	} else if (command == "x") {
 		if (numargs>0) {
-			fprintf(stdout, "Update a package\n");
-			fprintf(stdout, "Would update:%s\n", would.c_str());
+			printf("Update a package\n\n");
+			printf("Would update:%s\n", would.c_str());
 		} else {
-			fprintf(stdout, "Update all packages (freakishly slow)\n");
+			printf("Update all packages (freakishly slow)\n");
 		}
 	} else if (command == "/") {
 		if (numargs>0) {
-			fprintf(stdout, "Get information about a package\n");
-			fprintf(stdout, "Would list for:%s\n", would.c_str());
+			printf("Get information about a package\n\n");
+			printf("Would list for:%s\n", would.c_str());
 		} else {
-			fprintf(stdout, "Print the dependency tree\n");
+			printf("Print the dependency tree\n");
 		}
 	} else if (command == ".") {
 		if (numargs>0) {
-			fprintf(stdout, "Do repo-y stuff to a package\n");
-			fprintf(stdout, "Would give access to:%s\n", would.c_str());
+			printf("Do repo-y stuff to a package\n\n");
+			printf("Would give access to:%s\n", would.c_str());
 		} else {
-			fprintf(stdout, "Repo statistics of all packages\n");
+			printf("Repo statistics of all packages\n");
 		}
 	} else {
 		fprintf(stderr, "park: bad subcommand (%s)\n", command.c_str());
-		return 1;
 	}
-	//fprintf(stdout, "Autoremove: %d\n", autoremove);
+	if (autoremove) {
+		printf("\n--\n");
+		if (auto_r()) {
+			printf("Autoremove complete!\n");
+		} else {
+			fprintf(stderr, "park: failed to complete autoremove\n");
+		}
+	}
+	//printf("Autoremove: %d\n", autoremove);
 }
