@@ -21,8 +21,21 @@ string* arguments(int argc, char** argv) {
 	}
 	string* result;
 	result = new string[dist+1];
+	int j = 2;
 	for (int i=0;i<dist;i++) {
-		result[i] = argv[i+2];
+		result[i] = argv[j];
+		j++;
+		if (j < argc-1) {
+			string next = argv[j];
+			if (next == "--as" or next == "--to") {
+				result[i] += " ";
+				result[i] += argv[j];
+				result[i] += " ";
+				result[i] += argv[j+1];
+				j += 2;
+				dist-=2;
+			}
+		}
 	}
 	// terminate with blank string ("")
 	result[dist]="";
@@ -48,7 +61,7 @@ int main(int argc, char** argv) {
 	int numargs = 0;
 	string would = "";
 	while (args[numargs] != "") {
-		would += " "+ args[numargs];
+		would += "\n\t"+ args[numargs];
 		numargs++;
 	}
 	int autoremove = autoremove_later(argc, argv);
