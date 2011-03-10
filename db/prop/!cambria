@@ -4,5 +4,6 @@
 	"auto":"False",
 	"schedule":"every Tuesday 14:00",
 	"repo_up":"",
-	"repo_down":"git://github.com/campadrenalin/cambria-master"
+	"repo_down":"git://github.com/campadrenalin/cambria-master",
+	"description":"A Linux distro for hackers who also appreciate style. Based on Park."
 }

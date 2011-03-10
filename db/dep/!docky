@@ -17,7 +17,9 @@
 	gtk-sharp-2.0
 	gnome-desktop-sharp-2.0
 	gnome-keyring-sharp-1.0
-	mono-addins, mono-addins-gui, mono-addins-setup
+	mono-addins
+	mono-addins-gui
+	mono-addins-setup
 	mono-cairo
 	notify-sharp
 	libtool

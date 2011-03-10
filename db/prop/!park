@@ -3,5 +3,7 @@
 	"chan":"development",
 	"schedule":"every Tuesday 14:05",
 	"repo_up":"",
-	"repo_down":"git://github.com/campadrenalin/Park"
+	"repo_down":"git://github.com/campadrenalin/Park",
+	"bin":["park"],
+	"description":"A package management system that uses source repositories as packages."
 }
