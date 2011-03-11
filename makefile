@@ -6,6 +6,7 @@ all: src/park.cpp
 install: all
 	cp ./park /usr/local/sbin
 	-test -d $(DIRECTORY) || mkdir $(DIRECTORY)
+	-test -d $(DIRECTORY)/overrides || mkdir $(DIRECTORY)/overrides $(DIRECTORY)/overrides/prop/ $(DIRECTORY)/overrides/dep
 	cp -r db $(DIRECTORY)
 
 uninstall:
