@@ -25,12 +25,12 @@ Here is a summary of its usage:
 		Install a package to your system. You can install as many as
 		you want with a single command, they're space-seperated.
 
-	park + repolocation [--as name]
+	park + repolocation [--as name] [--to directory]
 
 		Install a package from a repo address. If no name is given,
 		the folder name retrieved by the repo program will be used.
 		If a name is given, then that will be used as the folder name
-		in /src/pkg. Note that this can be mixed freely with other
+		in /usr/src. Note that this can be mixed freely with other
 		packages, and is really the same command as above, but showing
 		off different features. 
 
@@ -54,6 +54,12 @@ Here is a summary of its usage:
 		by-side on your system. I could enter "park + ruby --as newruby"
 		to install the ruby package under the name "newruby", whether
 		it was currently installed or not.
+
+		The --to directory is an optionally directory where you want
+		a hardlink to the package stored. For example, I can install
+		a package --to ~/project/foreign/node.js, and it will still be
+		in /usr/src as well, with no extra disk usage as it's the same
+		copy. If the hardlink fails, a softlink will be attempted.
 
 	park -
 
