@@ -1,7 +1,0 @@
-{
-	"version":"0.1",
-	"chan":"development",
-	"schedule":"every Tuesday 14:05",
-	"repo_up":"",
-	"repo_down":"git://github.com/campadrenalin/Park"
-}

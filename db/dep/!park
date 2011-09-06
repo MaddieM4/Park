@@ -1,7 +1,0 @@
---all
-	cron
-	gcc
-	git
-	mercurial
-	bzr
-	boar
