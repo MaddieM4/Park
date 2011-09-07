@@ -1,2 +1,14 @@
-park
-a.out
+config.h*
+autom4*
+Makefile
+Makefile.in
+depcomp
+.deps
+aclocal.m4
+config.log
+config.status
+install-sh
+missing
+stamp*
+*.o
+park-meta
