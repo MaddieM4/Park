@@ -19,8 +19,8 @@ haveprog() {
 # Aptitude uses apt-get for backend, use aptitude if both are installed
 if haveprog aptitude ; then MANAGER="aptitude"
 elif haveprog apt-get ; then MANAGER="apt-get"
-elif haveprog up2date ; then MANAGER="up2date"
-elif haveprog yum ; then MANAGER="yum"
+elif haveprog installpkg ; then MANAGER="slack" # Slackware can do slack/rpm
+elif haveprog rpm ; then MANAGER="rpm"
 else
 	error 127 "Could not find a package manager to use as backend"
 fi
