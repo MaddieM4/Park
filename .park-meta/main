@@ -1,0 +1,21 @@
+name: park
+version: 0.01
+license: unlicensed
+
+maintainer: philip.horger@gmail.com
+summary: >
+   Park is a layer on top of your package manager that allows you to easily
+   install and manage packages, including creating packages from source or
+   binary folders, repo or downloaded.
+
+requires:
+   - bash
+   - gcc
+   - checkinstall
+   - gorepo
+
+provides:
+   - park
+
+command: make install
+precommand: make
