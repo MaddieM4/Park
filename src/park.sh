@@ -77,28 +77,40 @@ do_minus() {
 	fi;
 }
 
+update() {
+	# Total update
+	echo "Updating metadata"
+	case "$MANAGER" in
+	"aptitude"	) aptitude update;;
+	"apt-get"	) apt-get update;;
+	esac
+}
+
+upgrade() {
+	# Upgrade
+	if [ "$1" = '*' ]
+	then
+		upgradeall
+	else
+		packages space $1
+		case "$MANAGER" in
+		apt*	) apt-get install $PACKAGES;;
+		esac
+	fi
+}
+
+upgradeall() {
+	case "$MANAGER" in
+	apt*	) apt-get upgrade;;
+	esac
+}
+
 do_x() {
 	if [ -z "$1" ]
 	then
-		# Total update
-		echo "Updating metadata"
-		case "$MANAGER" in
-		"aptitude"	) aptitude update;;
-		"apt-get"	) apt-get update;;
-		esac
+		update
 	else
-		# Upgrade
-		if [ "$1" = '*' ]
-		then
-			case "$MANAGER" in
-			apt*	) apt-get upgrade;;
-			esac
-		else
-			packages space $1
-			case "$MANAGER" in
-			apt*	) apt-get install $PACKAGES;;
-			esac
-		fi
+		upgrade "$1"
 	fi;
 }
 
@@ -133,6 +145,8 @@ case "$1" in
 "+"	) shift; do_plus "$@";;
 "-"	) shift; do_minus "$@";;
 "x"	) shift; do_x "$@";;
+"xx"	) shift; upgradeall;;
+"xxx"	) shift; update; upgradeall;;
 "/"	) shift; do_div "$@";;
 "."	) shift; do_plus "$@";;
 "?"	) shift; do_search "$@";;
